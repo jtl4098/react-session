@@ -89,68 +89,14 @@ const App = () => {
 
     useEffect( () =>{
      
-        // setUser("");
-
-        // const fetchData = async () => {
-        //   const queryResult = await axios.post(
-        //     Constants.GRAPHQL_API, {
-            
-
-        //       // query: Constants.GET_USER_QUERY,
-        //       query: `
-        //       query{
-        //         getUser(id: ${num}){
-        //           id
-        //           first_name
-        //           last_name
-        //           email
-        //         }
-        //       }
-        //       `             
-        //     }            
-        //   );
-        //   console.log(queryResult);
-        //   // Call GraphQL API
-        //   let result = queryResult.data.data;
-        //     setDataUser(result.getUser);
-        //     console.log(dataUser);            
-        //   //Cookies.set("userInfo", dataUser.id);            
-        // };        
+          
 
         authListener();
 
-        var num  = 1;        
-        let body = {
-            query : `
-            query{
-                getUser(id: ${num}){
-                    id
-                    first_name
-                    last_name
-                    email
-                }
-            }`,
-            variables:{}
         
-        }
-        let options = {
-            headers:{
-                'Content-Type': 'application/json'
-            }
-        }
-        axios.post("http://localhost:8080/query",body, options
-                
-        ).then(res =>{
-            
-            setDataUser(res.data.data)
-            //console.log(dataUser)
-        }).catch(err => {console.log("Error", err.response)})
 
 
     }, []);
-    useEffect( () => {
-        console.log(dataUser)
-    }, [dataUser])
     
     return (
         <>

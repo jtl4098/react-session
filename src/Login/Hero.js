@@ -6,18 +6,19 @@ import * as Constants from '../constants';
 import axios from 'axios';
 const Hero = (props) => {
     const {email, setEmail,handleLogout, user, setUser} = props;
-    const userId = Cookies.get("userInfo");
+    const [userEmail, setUserEmail] = useState('');
  
     useEffect( ()=> {
         const fetchData = async () => {
-            console.log(userId);
+            console.log(userEmail)
             const queryResult = await axios.post(
                 Constants.GRAPHQL_API, {
                 
                 // query: Constants.GET_USER_QUERY,
+                // the user id should be user email
                 query: `
                 query{
-                    getPostsByUser(user: ${userId}){
+                    getPostsByUser(user: 1){
                     id
                     title
                     user_id
@@ -33,9 +34,15 @@ const Hero = (props) => {
             const postResult = queryResult.data.data;
             console.log(postResult);
         };
+
+        // get current user 
         firebase.auth().onAuthStateChanged(user =>{
+            //logging in
             if(user){
                 console.log(user);
+                
+                setUserEmail(user.ac.email)
+                //fetch data base on current user email but the query needs to be changed 
                 fetchData();
 
             }else{
